@@ -1,0 +1,240 @@
+# CAA 1
+Alejandro Pérez Bueno
+Mar 16, 2026
+
+- [Exercise 1](#exercise-1)
+  - [Layered Architecture](#layered-architecture)
+  - [Microservices Architecture](#microservices-architecture)
+- [Exercise 2](#exercise-2)
+- [Exercise 3](#exercise-3)
+- [Exercise 4](#exercise-4)
+  - [4.1](#41)
+  - [4.2](#42)
+  - [4.3](#43)
+  - [4.4](#44)
+
+
+
+## Exercise 1
+
+Below is the comparison of both types of architectures, using star
+ratings.
+
+|                   | Layered Architecture | Microservices Architecture |
+|-------------------|----------------------|----------------------------|
+| Partitioning type | Technical            | Domain                     |
+| Number of quanta  | 1                    | \> 1                       |
+| Deployability     | 1/5                  | 5/5                        |
+| Elasticity        | 1/5                  | 5/5                        |
+| Evolutionary      | 1/5                  | 5/5                        |
+| Fault tolerance   | 1/5                  | 5/5                        |
+| Modularity        | 1/5                  | 5/5                        |
+| Overall cost      | 5/5                  | 1/5                        |
+| Performance       | 2/5                  | 2/5                        |
+| Reliability       | 3/5                  | 4/5                        |
+| Scalability       | 1/5                  | 5/5                        |
+| Simplicity        | 5/5                  | 1/5                        |
+| Testability       | 2/5                  | 5/5                        |
+
+### Layered Architecture
+
+To preserve the integrity of a layered architecture we enforce closed
+layers to mantain isolation between them. Requests must pass through the
+next layer below, in order that the presentation layer does not reach
+into the database layer stright away. This way we reduce tight coupling
+and ensure that updates within one layer do not affect others, making
+the design easier to maintain.
+
+### Microservices Architecture
+
+To sustain the level of decoupling expected in a microservices
+architecture we can enforce a strict data isolation. Services do not
+share schemas or treat databases as integration mechanisms, they own
+their data and include what they need to run independently. We also
+avoid transactions that span service boundaries.
+
+## Exercise 2
+
+The most appropriate architectural style in this scrnario is the
+Pipeline Architecture Style (also called “pipes and filters
+architecture”). Below are a few reason as to why:
+
+Firstly, the new functinoality follows a set of consecutive stages and a
+clear flow: “processing flow structured in consecutive stages” and
+“follows a defined path from start to finish” are examples of this,
+which aligns pretty well with this architectural style, which is built
+on a topology of pipes that form a unidirectional and pooint to point
+communication channel to pass data from one step to the next.
+
+Secondly, in this architectural style filters are independent and
+self-contained. The workflow in this project maps to the types of
+filters used in a Pipeline architecture:
+
+- Producer: starting point where the client drops the media and an
+  operator attaches a QR code sticker to it.
+- Transformer: the digitization unit that takes the physical media and
+  transforms it into a standard video or audio format in Amazon S3, as
+  well as the next step where the operator manually reviews and adjusts
+  the digitized media.
+- Tester: verification step where the QR code is checked after the
+  digitization equipment is marked as complete.
+- Consumer: termination point where the final digital format becomes
+  ready for storing and is made accessible to the user in the online
+  site.
+
+Thirdly, the pipelune architecture ranks at a low 1/5 stars for
+elasticity, scalability and fault tolerance. This is usually a negative
+trait, but in this case it is just what we wanted to do, enforce rigid
+physical constraints: because the process relies on a “single available
+digitazion unit” and and on human operators where the next item must
+wait its turn, the system cannot easily scale in the event of peak
+loads.
+
+All in all, the main strengts of the pipeline architecture are its
+simplicity, low cost and modularity. Because the flow is sequential,
+there is no need to add much complexity and higher costs of distributed
+architectures.
+
+## Exercise 3
+
+In this new scenario, the most appropriate architectural style is the
+Event-Driven Architecture Style. Again, below are some reasons why I
+think that is the case:
+
+One substantial change from the previous exercise is that the system is
+no longer a single sequential machine, it is now composed of 10
+simultaneous digitization units to process several media files at a
+time. Event-driven architectures are rated 5 stars in terms of
+scalability thanks to load balancing of event processors, which allow
+for parallelization.
+
+Furthermore, AI agents are prone to hallucinate or be vague in their
+responses, often requiring manual corrections. Thanks to this
+architectural style, if the AI agent runs into one of these pitfalls, it
+can send the message to a separate queue which humans can later review
+on some sort of dashboard before resubmitting it for processing. This
+requirement for a “management tool” with a “visual tracking system” for
+the operator aligns quite well with this reactive architecture pattern
+
+The new scenario states yhat human intervention may cause workflows to
+“pause momentarily,” yet the overall system must maintain a constant and
+efficient digitization flow. This architectural style relies on
+asynchronous event processors, so that even if one part of the system
+(like the human operator) slows down, the hardware digitization units
+can continue processing the next items without being blocked.
+
+Finally, the requirement for notifications to prioritize pending work is
+easily handled in ths architecture style. Through broadcast
+capabilities, processing events can be asynchronously sent toseveral
+interested consumers (such as a notification engine or the operator’s
+tracking profile) simultaneously without coupling the components.
+
+## Exercise 4
+
+### 4.1
+
+Choosing between a NoSQL database (MongoDB) and a relational one
+(PostgreSQL) is an architectural decision. Let’s gp over the three
+criteria to verify it:
+
+1.  Specifies a nondomain design consideration: the choice of database
+    engine is a technical and operational concern (how data is
+    persisted, scaled and retrieved) rather than a business or domain
+    rule about how the rental process operates.
+2.  Influences some structural aspect of the design: the type of
+    database directly impacts the system’s structural topology, such as
+    data partitioning, schema design, and transactional boundaries
+3.  Is critical or important to application success: the database
+    selection will fundamentally determine system characteristics like
+    scalability, performance pr reliability which are critical to the
+    success of the Photo&Film4You platform.
+
+### 4.2
+
+> [!TIP]
+>
+> ### General principle
+>
+> The architect defines, manages, and governs the overall components and
+> characteristics.
+>
+> Developers and tech leads handle class or function-level design and
+> implementation.
+
+- Architect:
+  - Negotiate with stakeholders to obtain approval for a decision that
+    increases short-term operational costs but improves scalability:
+    Architects must collaborate with stakeholders to balance domain
+    concerns with architecture characteristics.
+  - Evaluate the feasibility of the current architecture in light of the
+    impact of new technological trends, such as integrating generative
+    AI services: architects must keep a keen eye on industry trends, new
+    tools, and new paradigms to make intelligent structural decisions
+  - Define automated functions to monitor that the coupling between
+    services does not exceed established limits: they define fitness
+    functions to protect architectural principles and govern structural
+    characteristics
+- Development Team:
+  - Optimize the internal logic and memory usage of a search algorithm
+    within a specific business component: Component internals, class
+    design, and algorithm implementation fall under the developers’
+    purview.
+  - Code a wrapper for a third-party library in order to simplify its
+    use by other team programmers: This is a lower-level implementation
+    and coding task
+  - Configure the format of debug traces for a specific module of the
+    system: this is an internal module detail managed at the coding
+    level
+
+### 4.3
+
+It is a fundamental rule (the First Law of Software Architecture) that
+everything in software is a trade-off; you cannot maximize all desirable
+architecture characteristics at once. For a real-time Event-Driven
+bidding system, here are examples of these trade-offs:
+
+- Scalability vs error handling: To achieve the massive scalability and
+  responsiveness needed for real-time bidding, the system could use a
+  highly decoupled “broker topology” with asynchronous fire-and-forget
+  messaging. However, this eliminates central workflow control, making
+  error handling (for instace, rolling back a bid if a user’s account is
+  abruptly suspended) and transaction recoverability difficult to
+  manage.
+- Performance vs security and consistency: Maximizing security (for
+  example, using heavy encryption for every single bid event) will
+  inevitably introduce latency and processing overhead, which directly
+  degrades the high performance and low latency required by a live
+  auction.
+
+### 4.4
+
+#### Expectation 1
+
+As highlighted in the debate by Pablo and Sugar, an architect is
+expected to keep their hands dirty and continue writing code. If an
+architect just draws diagrams and attends meetings, their ideas become
+too abstract, and risk designing systems that look clean on paper but
+are impossible for the team to actually build.
+
+Eample task: before mandating that the development team switch to a new
+API gateway, the architect checks out the current codebase and builds a
+working Proof of Concept of the gateway themselves. This way the
+architect identifies potential library compatibility issues early and
+provides a working skeleton for the developers to follow.
+
+#### Expectation 2
+
+In the debate, Carlos, Pablo, and Sugar again mention that half of an
+architect’s job is communication. An architect is supposed to act as a
+bridge, translating complex technical decisions into business impacts so
+that stakeholders, project managers, and clients can understand the
+“why” behind an architecture and agree on realistic timelines and
+budgets.
+
+Example task: the architect prepares a presentation for the Chief
+Financial Officer to justify a short-term increase in cloud
+infrastructure costs. Instead of talking about the technical nuances of
+asynchronous message queues versus synchronous REST calls, the architect
+demonstrates how the new decoupled architecture will prevent the website
+from crashing during the upcomig sale, thus protecting the company’s
+peak revenue season
