@@ -13,11 +13,11 @@ link-bibliography: true
 format:
   gfm: default
   pdf:
-    linestretch: 1.25
-    geometry:
-      - top=30mm
-      - left=20mm
-      - heightrounded
+  linestretch: 1.25
+  geometry:
+    - top=30mm
+    - left=20mm
+    - heightrounded
     include-in-header:
       text: |
         \usepackage{fancyhdr}
