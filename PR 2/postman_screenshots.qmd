@@ -1,0 +1,146 @@
+---
+title: "PR 2. Postman Screenshots"
+subtitle: "Software Architecture"
+author: Alejandro Perez Bueno
+date: today
+date-format: "MMM DD, YYYY"
+toc: true
+toc-title: "Table of Contents"
+linkcolor: blue
+documentclass: report
+format:
+  pdf:
+    linestretch: 1.25
+    geometry:
+      - top=30mm
+      - left=20mm
+      - heightrounded
+    include-in-header:
+      text: |
+        \usepackage{fancyhdr}
+          \pagestyle{fancy}
+          \fancyhead[C]{UOC}
+          \fancyhead[R]{aperez-b@uoc.edu}
+          \fancyfoot{}
+          \fancyfoot[C]{\thepage}
+---
+
+{{< pagebreak >}}
+
+# Exercise 2: Operation Evidence
+
+## Course Service
+
+### C1. Find All Courses
+
+![](img/C01_find_all_courses.png)
+
+{{< pagebreak >}}
+
+### C2. Find Courses by Title
+
+![](img/C02_find_courses_by_title.png)
+
+{{< pagebreak >}}
+
+### C3. Find Courses by Instructor
+
+![](img/C03_find_courses_by_instructor.png)
+
+{{< pagebreak >}}
+
+### C4. Get Course by ID
+
+![](img/C04_get_course_by_id.png)
+
+{{< pagebreak >}}
+
+### C5. Create Course
+
+![](img/C05_create_course.png)
+
+{{< pagebreak >}}
+
+### C6. Modify Course Details
+
+![](img/C06_modify_course_details.png)
+
+{{< pagebreak >}}
+
+### C7. Open Enrollment
+
+![](img/C07_open_enrollment.png)
+
+{{< pagebreak >}}
+
+### C8. Enroll in Course
+
+![](img/C08_enroll_in_course.png)
+
+{{< pagebreak >}}
+
+### C9. Get Enrolled Students
+
+![](img/C09_get_enrolled_students.png)
+
+{{< pagebreak >}}
+
+### C10. Close Enrollment
+
+![](img/C10_close_enrollment.png)
+
+{{< pagebreak >}}
+
+### C11. Close Course
+
+![](img/C11_close_course.png)
+
+{{< pagebreak >}}
+
+### C12. Close Grade Reports
+
+![](img/C12_close_grade_reports.png)
+
+{{< pagebreak >}}
+
+## Microcredential Service
+
+### M1. Request Microcredential for Enrollment 3
+
+![](img/M01_request_microcredential_enrollment3.png)
+
+{{< pagebreak >}}
+
+### M2. Request Microcredential for Enrollment 4
+
+![](img/M02_request_microcredential_enrollment4.png)
+
+{{< pagebreak >}}
+
+### M3. Get Pending Microcredentials
+
+![](img/M03_get_pending_microcredentials.png)
+
+{{< pagebreak >}}
+
+### M4. Get Microcredential by ID
+
+![](img/M04_get_microcredential_by_id.png)
+
+{{< pagebreak >}}
+
+### M5. Approve Microcredential
+
+![](img/M05_approve_microcredential.png)
+
+{{< pagebreak >}}
+
+### M6. Reject Microcredential
+
+![](img/M06_reject_microcredential.png)
+
+{{< pagebreak >}}
+
+### M7. Request Course Microcredentials
+
+![](img/M07_request_course_microcredentials.png)
